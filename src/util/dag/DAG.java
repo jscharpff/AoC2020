@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Container for a directed, acyclic graph
@@ -50,21 +51,39 @@ public class DAG {
 	}
 	
 	/**
+	 * @return The set of nodes
+	 */
+	public Set<Node> getNodes( ) {
+		return (Set<Node>) nodes.values( );
+	}
+	
+	/**
 	 * @return The number of nodes in the dag
 	 */
 	public int size() { return nodes.size( ); }
 	
 	/**
-	 * Adds an arc to the DAG to connect the two specified nodes
+	 * @return List of arcs
+	 */
+	public List<Arc> getArcs( ) {
+		return arcs;
+	}
+	
+	/**
+	 * Adds an arc to the DAG to connect the two specified nodes, if not already present
 	 * 
 	 * @param arc The arc to add
+	 * @return False if the arc was already in the list
 	 */
-	public void addArc( final Arc arc ) {
+	public boolean addArc( final Arc arc ) {
+		if( arcs.contains( arc ) ) return false;
+		
 		arcs.add( arc );
 		
 		// make sure nodes also know of the arc
 		arc.from.addOutgoing( arc );
 		arc.to.addIncoming( arc );
+		return true;
 	}
 	
 	/**

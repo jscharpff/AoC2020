@@ -18,6 +18,7 @@ public class Day7 {
 	 * Day 7 of the advent of code
 	 * 
 	 * @param args The command line arguments
+	 * @throws Exception
 	 */
 	public static void main( final String[] args ) throws Exception {
 		
@@ -31,7 +32,7 @@ public class Day7 {
 		System.out.println( "Example: " + countContaining( example1, MY_BAG ) );
 		System.out.println( "Part 1 : " + countContaining( input, MY_BAG ) );
 		
-		System.out.println( "---[ Part 2 ]---" );
+		System.out.println( "\n---[ Part 2 ]---" );
 		System.out.println( "Example: " + countContained( example1, MY_BAG ) );
 		System.out.println( "Example: " + countContained( example2, MY_BAG ) );
 		System.out.println( "Part 2 : " + countContained( input, MY_BAG ) );
@@ -49,7 +50,7 @@ public class Day7 {
 		final List<String> input = f.readLines( );
 		final DAG dag = new DAG( );
 		
-		// go over rules and parse into bags and arcs
+		// go over rules and parse into nodes and arcs
 		for( String s : input ) {
 			final String[] rule = s.split( " bags contain " );
 			final Node bag = dag.addNode( rule[0].toLowerCase( ) );

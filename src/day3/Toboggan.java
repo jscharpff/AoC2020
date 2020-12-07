@@ -1,4 +1,4 @@
-package day3.map;
+package day3;
 
 import util.geometry.Coord2D;
 

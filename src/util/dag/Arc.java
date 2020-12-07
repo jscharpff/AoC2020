@@ -41,7 +41,7 @@ public class Arc {
 	 * @return String representation of the arc
 	 */
 	public String toString( ) {
-		return from.toString( ) + "--(" + weight + ")-->" + to.toString( );
+		return from.toString( ) + "-(" + weight + ")->" + to.toString( );
 	}
 	
 	/**

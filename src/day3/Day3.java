@@ -1,9 +1,8 @@
 package day3;
 
-import day3.map.Map;
-import day3.map.Tile;
-import day3.map.Toboggan;
 import util.geometry.Coord2D;
+import util.map.Map;
+import util.map.Tileset;
 
 public class Day3 {
 	
@@ -14,8 +13,11 @@ public class Day3 {
 	 * @throws Exception 
 	 */
 	public static void main( String[] args ) throws Exception {
-		final Map ex_map = Map.fromFile( Day3.class.getResource( "day3_example.txt" ).getFile( ) );
-		final Map map = Map.fromFile( Day3.class.getResource( "day3_input.txt" ).getFile( ) );
+		final Tileset tileset = new Tileset( '.', '#' );
+		final Map ex_map = Map.fromFile( Day3.class.getResource( "day3_example.txt" ).getFile( ), tileset );
+		final Map map = Map.fromFile( Day3.class.getResource( "day3_input.txt" ).getFile( ), tileset );
+		
+		System.out.println( ex_map );
 		
 		System.out.println( "---[ Part 1 ]---" );
 		System.out.println( "Example: " + part1( ex_map ) );
@@ -69,7 +71,7 @@ public class Day3 {
 		int count = 0;
 		
 		while( tob.getPosition( ).y < map.getHeight() ) {
-			if( map.getTile( tob.getPosition( ) ) == Tile.Tree ) count++;
+			if( map.getTile( tob.getPosition( ) ).hasLabel( '#' ) ) count++;
 			tob.move( );
 		}
 		

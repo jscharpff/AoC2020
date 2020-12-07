@@ -99,8 +99,7 @@ public class Node {
 	 */
 	protected boolean addArc( final Arc arc, final List<Arc> arclist ) {		
 		// prevent duplicate arcs
-		for( Arc a : arclist )
-			if( a.equals( arc ) ) return false;
+		if( arclist.contains( arc ) ) return false;
 		
 		arclist.add( arc );
 		return true;

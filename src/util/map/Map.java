@@ -1,4 +1,4 @@
-package day3.map;
+package util.map;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,20 +18,36 @@ public class Map {
 	/** The map height */
 	protected final int height;
 	
+	/** The set of available tiles */
+	protected final Tileset tileset;
+	
 	/** The map tile set */
 	protected final Tile[][] tiles;
 
 	/**
-	 * Creates a new map of width w and height h
+	 * Creates a new map of width w and height h, using the specified tile set
 	 * 
 	 * @param heigth The map height
 	 * @param width The map width
+	 * @param tileset The tile set to use
 	 */
-	public Map( final int height, final int width ) {
+	public Map( final int height, final int width, final Tileset tileset ) {
 		this.width = width;
 		this.height = height;
-		
+				
 		tiles = new Tile[height][width];
+		this.tileset = tileset;
+	}
+	
+	/**
+	 * Initialises the entire map with the specified tile
+	 * 
+	 * @param tile The tile to fill the map with
+	 */
+	public void clear( final Tile tile ) {
+		for( int y = 0; y < this.height; y++ )
+			for( int x = 0; x < this.width; x++ )
+				this.tiles[y][x] = tile;
 	}
 	
 	/**
@@ -79,10 +95,11 @@ public class Map {
 	 * Constructs a map from a list of strings that describes the rows of the map
 	 * 
 	 * @param infile The input file to read from
+	 * @param tileset The tile set to use in creating the map
 	 * @return A new map
 	 * @throws IOException if file reading failed
 	 */
-	public static Map fromFile( final String infile) throws IOException {
+	public static Map fromFile( final String infile, final Tileset tileset ) throws IOException {
 		final FileReader f = new FileReader( infile ); 
 		final List<String> input = f.readLines( );
 		
@@ -92,13 +109,17 @@ public class Map {
 		final int width = input.get( 0 ).length( );
 		
 		// create the map
-		final Map map = new Map( heigth, width );
+		final Map map = new Map( heigth, width, tileset );
 		
 		// then read the strings and set the tiles at the positions
 		for( int y = 0; y < input.size( ); y++ ) {
 			final String s = input.get( y );
 			for( int x = 0; x < s.length( ); x++ ) {
-				map.setTile( x, y, Tile.fromLabel( s.charAt( x ) ) );
+				final char tilelabel = s.charAt( x );
+				final Tile tile = tileset.getTile( tilelabel );
+				if( tile == null ) throw new RuntimeException( "Unknown tile in map input: " + tilelabel );
+				
+				map.setTile( x, y, tile );
 			}
 		}
 		
