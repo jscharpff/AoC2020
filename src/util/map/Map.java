@@ -102,7 +102,6 @@ public class Map {
 	public static Map fromFile( final String infile, final Tileset tileset ) throws IOException {
 		final FileReader f = new FileReader( infile ); 
 		final List<String> input = f.readLines( );
-		
 
 		// get dimensions first
 		final int heigth = input.size( );

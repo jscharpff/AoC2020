@@ -22,16 +22,24 @@ public class Tileset {
 	}
 	
 	/**
-	 * Constructs a new tile set with initial tiles specified by labels
+	 * Constructs a new tile set with initial tiles specified by a label array
 	 * 
 	 * @param tiles The initial tile set
 	 */
-	public Tileset( Character... tiles ) {
+	public Tileset( final char... tiles ) {
 		this( );
 		
 		for( Character s : tiles )
 			addTile( s );
-		System.out.println( this );
+	}
+	
+	/**
+	 * Constructs a new tile set from a string containing the tile labels
+	 * 
+	 * @param tiles The tile set string
+	 */
+	public Tileset( final String tiles ) {
+		this( tiles.toCharArray( ) );
 	}
 	
 	/**

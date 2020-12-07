@@ -16,9 +16,7 @@ public class Day3 {
 		final Tileset tileset = new Tileset( '.', '#' );
 		final Map ex_map = Map.fromFile( Day3.class.getResource( "day3_example.txt" ).getFile( ), tileset );
 		final Map map = Map.fromFile( Day3.class.getResource( "day3_input.txt" ).getFile( ), tileset );
-		
-		System.out.println( ex_map );
-		
+				
 		System.out.println( "---[ Part 1 ]---" );
 		System.out.println( "Example: " + part1( ex_map ) );
 		System.out.println( "Part 1 : " + part1( map ) );
