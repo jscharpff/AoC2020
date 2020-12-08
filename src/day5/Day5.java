@@ -2,7 +2,7 @@ package day5;
 
 import java.util.List;
 
-import util.FileReader;
+import util.io.FileReader;
 
 public class Day5 {
 	

@@ -3,35 +3,35 @@ package util.map;
 import java.io.IOException;
 import java.util.List;
 
-import util.FileReader;
 import util.geometry.Coord2D;
+import util.io.FileReader;
 
 /**
- * Container for boardlike maps
+ * Container for boardlike grid
  * 
  * @author Joris
  */
-public class Map {
-	/** The map width */
+public class Grid {
+	/** The grid width */
 	protected final int width;
 	
-	/** The map height */
+	/** The grid height */
 	protected final int height;
 	
 	/** The set of available tiles */
 	protected final Tileset tileset;
 	
-	/** The map tile set */
+	/** The grid tile set */
 	protected final Tile[][] tiles;
 
 	/**
-	 * Creates a new map of width w and height h, using the specified tile set
+	 * Creates a new grid of width w and height h, using the specified tile set
 	 * 
-	 * @param heigth The map height
-	 * @param width The map width
+	 * @param heigth The grid height
+	 * @param width The grid width
 	 * @param tileset The tile set to use
 	 */
-	public Map( final int height, final int width, final Tileset tileset ) {
+	public Grid( final int height, final int width, final Tileset tileset ) {
 		this.width = width;
 		this.height = height;
 				
@@ -40,7 +40,7 @@ public class Map {
 	}
 	
 	/**
-	 * Initialises the entire map with the specified tile
+	 * Initialises the entire grid with the specified tile
 	 * 
 	 * @param tile The tile to fill the map with
 	 */
@@ -85,21 +85,21 @@ public class Map {
 		return old;
 	}
 	
-	/** @return The width of the map */
+	/** @return The width of the grid */
 	public int getWidth( ) { return this.width; }
 	
-	/** @return The height of the map */
+	/** @return The height of the grid */
 	public int getHeight( ) { return this.height; }
 	
 	/**
-	 * Constructs a map from a list of strings that describes the rows of the map
+	 * Constructs a grid from a file
 	 * 
 	 * @param infile The input file to read from
-	 * @param tileset The tile set to use in creating the map
-	 * @return A new map
+	 * @param tileset The tile set to use in creating the grid
+	 * @return A new grid
 	 * @throws IOException if file reading failed
 	 */
-	public static Map fromFile( final String infile, final Tileset tileset ) throws IOException {
+	public static Grid fromFile( final String infile, final Tileset tileset ) throws IOException {
 		final FileReader f = new FileReader( infile ); 
 		final List<String> input = f.readLines( );
 
@@ -108,7 +108,7 @@ public class Map {
 		final int width = input.get( 0 ).length( );
 		
 		// create the map
-		final Map map = new Map( heigth, width, tileset );
+		final Grid grid = new Grid( heigth, width, tileset );
 		
 		// then read the strings and set the tiles at the positions
 		for( int y = 0; y < input.size( ); y++ ) {
@@ -116,17 +116,17 @@ public class Map {
 			for( int x = 0; x < s.length( ); x++ ) {
 				final char tilelabel = s.charAt( x );
 				final Tile tile = tileset.getTile( tilelabel );
-				if( tile == null ) throw new RuntimeException( "Unknown tile in map input: " + tilelabel );
+				if( tile == null ) throw new RuntimeException( "Unknown tile in grid input: " + tilelabel );
 				
-				map.setTile( x, y, tile );
+				grid.setTile( x, y, tile );
 			}
 		}
 		
-		return map;
+		return grid;
 	}
 	
 	/**
-	 * @return String representation of the map
+	 * @return String representation of the grid
 	 */
 	public String toString( ) {
 		String res = "";

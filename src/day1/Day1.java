@@ -2,7 +2,7 @@ package day1;
 
 import java.io.IOException;
 
-import util.FileReader;
+import util.io.FileReader;
 
 /**
  * @author Joris

@@ -5,7 +5,7 @@ import java.util.List;
 import day2.passwordvalidator.PasswordValidator;
 import day2.passwordvalidator.PasswordValidator1;
 import day2.passwordvalidator.PasswordValidator2;
-import util.FileReader;
+import util.io.FileReader;
 
 public class Day2 {
 

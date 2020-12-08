@@ -8,10 +8,10 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import util.FileReader;
 import util.dag.Arc;
 import util.dag.DAG;
 import util.dag.Node;
+import util.io.FileReader;
 
 public class Day7 {
 	/**

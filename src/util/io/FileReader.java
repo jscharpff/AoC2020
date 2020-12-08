@@ -1,9 +1,9 @@
-package util;
+package util.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +14,10 @@ public class FileReader {
 	/** 
 	 * Creates a new FileReader
 	 * 
-	 * @param path The path of the file to read
+	 * @param uri The resource identifier of the file
 	 */
-	public FileReader( Path path ) {
-		this( path.toString( ) );
+	public FileReader( URL url ) {
+		this( url.getFile( ) );
 	}
 	
 	/** 

@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import util.FileReader;
+import util.io.FileReader;
 
 public class Passport {
 	/** The passport key/value set */

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.FileReader;
+import util.io.FileReader;
 
 public class CustomsGroup {
 	/** Max questions on the customs form */
