@@ -1,7 +1,7 @@
-package day8.program.exceptions;
+package util.program.exceptions;
 
-import day8.program.Instruction;
-import day8.program.Program;
+import util.program.Instruction;
+import util.program.Program;
 
 @SuppressWarnings( "serial" )
 public class UnsupportedInstructionException extends ProgramException {

@@ -1,4 +1,4 @@
-package day8.program;
+package util.program;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import day8.program.Instruction.Op;
-import day8.program.ProgramLogger.LogType;
-import day8.program.exceptions.InfiniteLoopException;
-import day8.program.exceptions.InvalidProgramException;
-import day8.program.exceptions.ProgramException;
-import day8.program.exceptions.UnsupportedInstructionException;
 import util.io.FileReader;
+import util.program.Instruction.Op;
+import util.program.ProgramLogger.LogType;
+import util.program.exceptions.InfiniteLoopException;
+import util.program.exceptions.InvalidProgramException;
+import util.program.exceptions.ProgramException;
+import util.program.exceptions.UnsupportedInstructionException;
 
 public class Program {
 	/** The instruction list */
@@ -131,7 +131,7 @@ public class Program {
 	 * @throws ProgramException The exception that was encountered
 	 */
 	protected void halt( final ProgramException exception ) throws ProgramException {
-		logger.error( "Execution encountered an exception: " + exception.toString( ) );
+		logger.error( exception.toString( ) );
 		throw exception;
 	}
 	

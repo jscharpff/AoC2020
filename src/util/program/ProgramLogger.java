@@ -1,4 +1,4 @@
-package day8.program;
+package util.program;
 
 import java.util.EnumSet;
 

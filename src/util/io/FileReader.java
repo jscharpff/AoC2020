@@ -47,6 +47,24 @@ public class FileReader {
 	}
 	
 	/**
+	 * Reads the entire file and parses lines into a long array
+	 *  
+	 * @return Array of longs, one per line
+	 * @throws IOException 
+	 */
+	public long[] readLongArray() throws IOException {
+		final List<String> lines = this.readLines( );
+		final long[] res = new long[ lines.size( ) ];
+		
+		for( int i = 0; i < lines.size( ); i++ ) {
+			res[ i ] = Long.parseLong( lines.get( i ) );
+		}
+		
+		return res;
+	}
+	
+	
+	/**
 	 * Reads file
 	 * 
 	 * @return List of strings, one per new line

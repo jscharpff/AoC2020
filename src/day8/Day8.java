@@ -2,11 +2,11 @@ package day8;
 
 import java.util.List;
 
-import day8.program.Instruction;
-import day8.program.Instruction.Op;
-import day8.program.Program;
-import day8.program.exceptions.InfiniteLoopException;
-import day8.program.exceptions.ProgramException;
+import util.program.Instruction;
+import util.program.Program;
+import util.program.Instruction.Op;
+import util.program.exceptions.InfiniteLoopException;
+import util.program.exceptions.ProgramException;
 
 public class Day8 {
 	
