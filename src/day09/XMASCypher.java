@@ -1,4 +1,4 @@
-package day9;
+package day09;
 
 public class XMASCypher {
 	/** The cypher key */

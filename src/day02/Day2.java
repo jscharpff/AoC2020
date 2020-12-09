@@ -1,10 +1,10 @@
-package day2;
+package day02;
 
 import java.util.List;
 
-import day2.passwordvalidator.PasswordValidator;
-import day2.passwordvalidator.PasswordValidator1;
-import day2.passwordvalidator.PasswordValidator2;
+import day02.passwordvalidator.PasswordValidator;
+import day02.passwordvalidator.PasswordValidator1;
+import day02.passwordvalidator.PasswordValidator2;
 import util.io.FileReader;
 
 public class Day2 {

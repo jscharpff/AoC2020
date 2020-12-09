@@ -1,4 +1,4 @@
-package day3;
+package day03;
 
 import util.geometry.Coord2D;
 import util.map.Grid;

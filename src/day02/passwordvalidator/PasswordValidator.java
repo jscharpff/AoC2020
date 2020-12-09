@@ -1,4 +1,4 @@
-package day2.passwordvalidator;
+package day02.passwordvalidator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
