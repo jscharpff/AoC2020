@@ -1,5 +1,7 @@
 package util.program;
 
+import util.program.exceptions.InvalidSyntaxException;
+
 public class Instruction {
 	/** The instruction operation */
 	public enum Op {
@@ -12,7 +14,7 @@ public class Instruction {
 	protected final Op op;
 	
 	/** The operation argument */
-	protected final int argval;
+	protected final Argument arg;
 	
 	/**
 	 * Creates a new instruction
@@ -20,34 +22,37 @@ public class Instruction {
 	 * @param op The operation
 	 * @param val The operation argument value
 	 */
-	public Instruction( final Op op, final int val ) {
+	public Instruction( final Op op, final Argument val ) {
 		this.op = op;
-		this.argval = val;
+		this.arg = val;
 	}
 	
 	/** @return The operation */
 	public Op getOperation() { return op; }
 	
 	/** @return The instruction argument value */
-	public int getArgument( ) { return argval; }
+	public Argument getArgument( ) { return arg; }
 	
 	/**
 	 * Builds instruction from string operator and argument value
 	 * 
 	 * @param operation The operation as string
 	 * @param value The integer argument value
+	 * @throws InvalidSyntaxException if the syntax is invalid
 	 */
-	public static Instruction fromString( final String operation, final int value ) {
+	public static Instruction fromString( final String operation, final String value ) throws InvalidSyntaxException {
 		try {
 			final Op op = Op.valueOf( operation.toUpperCase( ) );
-			return new Instruction( op, value );
-		} catch( IllegalArgumentException e ) { return null; }
+			return new Instruction( op, Argument.fromString( value ) );
+		} catch( IllegalArgumentException  e ) { 
+			throw new InvalidSyntaxException( "Unknown operation '" + operation + "'" );
+		}
 	}
 	
 	/**
 	 * @return The string representation of the instruction
 	 */
 	public String toString( ) {
-		return op + " " + argval;
+		return op + " " + arg;
 	}
 }

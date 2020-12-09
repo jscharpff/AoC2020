@@ -11,6 +11,7 @@ import util.program.Instruction.Op;
 import util.program.ProgramLogger.LogType;
 import util.program.exceptions.InfiniteLoopException;
 import util.program.exceptions.InvalidProgramException;
+import util.program.exceptions.InvalidSyntaxException;
 import util.program.exceptions.ProgramException;
 import util.program.exceptions.UnsupportedInstructionException;
 
@@ -63,7 +64,7 @@ public class Program {
 	 */
 	public int run( ) throws ProgramException {
 		// check validity
-		if( program.size( ) == 0 ) throw new InvalidProgramException( this, "No instructions in program" );
+		if( program.size( ) == 0 ) throw new InvalidProgramException( this, "No instructions in program", -1 );
 		
 		// initialise program
 		IP = -1;
@@ -106,14 +107,14 @@ public class Program {
 			
 			case ACC:
 				// change value of global register by argument
-				final int addvalue = inst.getArgument( );
+				final int addvalue = inst.getArgument( ).getValue( );
 				debug( "Adding " + addvalue + " to global register (old value = " + register + ", new value = " + (register + addvalue) + ")" );
 				register += addvalue;
 				break;
 				
 			case JMP:
 				// jump relative to current instruction by argument 
-				final int targetip = IP + inst.getArgument( ) - 1;
+				final int targetip = IP + inst.getArgument( ).getValue( ) - 1;
 				debug( "Jump to line " + (targetip + 2) );
 				IP = targetip;
 				break;
@@ -164,7 +165,7 @@ public class Program {
 			if( instr.getOperation( ) != Op.JMP ) continue;
 			
 			// its a jump, check i it leads to a cycle by jumping to already visited code
-			final int target_idx = idx + instr.getArgument( );
+			final int target_idx = idx + instr.getArgument( ).getValue( );
 			if( target_idx >= program.size( ) || !visited[ target_idx ] ) {
 				// not seen before, perform jump
 				idx = target_idx - 1;
@@ -184,17 +185,28 @@ public class Program {
 	 * @param infile The file to load
 	 * @return The program
 	 * @throws IOException 
+	 * @throws InvalidProgramException if the program definition is invalid
 	 */
-	public static Program fromFile( final String infile ) throws IOException {
+	public static Program fromFile( final String infile ) throws IOException, InvalidProgramException {
 		final FileReader f = new FileReader( infile ); 
 		final List<String> input = f.readLines( );
 
 		// construct a new program by parsing instructions per line
 		final Program program = new Program( );
+		int lineno = 0;
 		for( String line : input ) {
+			// keep track of line number for logging and error messasges
+			lineno++;
+			
 			final String[] s = line.split( " " );
-			final Instruction instr = Instruction.fromString( s[0], Integer.valueOf( s[1] ) );
-			program.addInstruction( instr );
+			try {
+				// check if the line format matches the instruction format
+				if( s.length != 2 ) throw new InvalidSyntaxException( "Expected an instruction followed by argument, received '" + line + "'" );
+				
+				program.addInstruction( Instruction.fromString( s[0], s[1] ) );
+			} catch( InvalidSyntaxException e ) {
+				throw new InvalidProgramException( program, "Invalid syntax in program definition\n\n" + e.toString( ), lineno );
+			}
 		}
 		
 		return program;
