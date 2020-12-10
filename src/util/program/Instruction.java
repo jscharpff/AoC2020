@@ -45,6 +45,7 @@ public class Instruction {
 			final Op op = Op.valueOf( operation.toUpperCase( ) );
 			return new Instruction( op, Argument.fromString( value ) );
 		} catch( IllegalArgumentException  e ) { 
+			/** Thrown when the enum value cannot be matched */
 			throw new InvalidSyntaxException( "Unknown operation '" + operation + "'" );
 		}
 	}
