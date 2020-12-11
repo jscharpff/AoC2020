@@ -1,4 +1,4 @@
-package util.map;
+package day03;
 
 public class Tile {
 	/** The tile code for storage */
@@ -55,6 +55,15 @@ public class Tile {
 	@Override
 	public int hashCode( ) {
 		return code;
+	}
+	
+	/**
+	 * Copies the tile
+	 * 
+	 * @return the copy
+	 */
+	protected Tile copy( ) {
+		return new Tile( code, label );
 	}
 	
 	/**

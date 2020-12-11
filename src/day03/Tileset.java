@@ -1,4 +1,4 @@
-package util.map;
+package day03;
 
 import java.util.HashMap;
 
@@ -65,6 +65,16 @@ public class Tileset {
 	 */
 	public Tile getTile( final char tilelabel ) {
 		return tileset.get( tilelabel );
+	}
+	
+	/**
+	 * Checks if a tile is part of the tile set
+	 * 
+	 * @param tile The tile character
+	 * @return True iff the tile is part of the set
+	 */
+	public boolean hasTile( final char tile ) {
+		return tileset.containsKey( tile );
 	}
 	
 	/** @return The number of tiles in this set */

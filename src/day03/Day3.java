@@ -1,8 +1,6 @@
 package day03;
 
 import util.geometry.Coord2D;
-import util.map.Grid;
-import util.map.Tileset;
 
 public class Day3 {
 	

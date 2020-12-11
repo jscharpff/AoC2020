@@ -1,4 +1,4 @@
-package util.map;
+package day03;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,7 +67,7 @@ public class Grid {
 	 * @param y The vertical position
 	 * @return The tile at that position
 	 */
-	protected Tile getTile( final int x, final int y ) {
+	public Tile getTile( final int x, final int y ) {
 		return tiles[y][x];
 	}
 	
@@ -79,7 +79,7 @@ public class Grid {
 	 * @param tile The tile to set
 	 * @return The previous value at the tile position
 	 */
-	protected Tile setTile( final int x, final int y, final Tile tile ) {
+	public Tile setTile( final int x, final int y, final Tile tile ) {
 		final Tile old = tiles[y][x];
 		tiles[y][x] = tile;
 		return old;
@@ -90,6 +90,48 @@ public class Grid {
 	
 	/** @return The height of the grid */
 	public int getHeight( ) { return this.height; }
+	
+	/** @return The tileset */
+	public Tileset getTileset( ) { return this.tileset; }
+	
+	/**
+	 * Counts the occurrence of a tile
+	 * 
+	 * @param tile The tile type to count
+	 * @return The number of times it is on the map
+	 */
+	public int countTile( final Tile tile ) {
+		int count = 0;
+		for( int x = 0; x < width; x++ )
+			for( int y = 0; y < height; y++ )
+				if( getTile( x, y ).equals( tile ) ) count++;
+		return count;
+	}
+	
+	/**
+	 * Counts the number of neighbouring tiles of the specified type
+	 * 
+	 * @param x The horizontal position
+	 * @param y The vertical position
+	 * @param tile The tile to count
+	 * @param diagonal True to include diagonals in the count
+	 * @return The number of neighbours
+	 */
+	public int countNeighbours( final int x, final int y, final Tile tile, final boolean diagonal ) {
+		int count = 0;
+		count += (x > 0 && getTile( x - 1, y ).equals( tile ) ) ? 1 : 0;
+		count += (x < width - 1 && getTile( x + 1, y ).equals( tile ) ) ? 1 : 0;
+		count += (y > 0 && getTile( x, y - 1 ).equals( tile ) ) ? 1 : 0;
+		count += (y < height - 1 && getTile( x, y + 1 ).equals( tile ) ) ? 1 : 0;
+		
+		if( !diagonal ) return count;
+		
+		count += (x > 0 && y > 0 && getTile( x - 1, y - 1 ).equals( tile ) ) ? 1 : 0;
+		count += (x > 0 && y < height - 1 && getTile( x - 1, y + 1 ).equals( tile ) ) ? 1 : 0;
+		count += (x < width - 1 && y > 0 && getTile( x + 1, y - 1 ).equals( tile ) ) ? 1 : 0;
+		count += (x < width - 1 && y < height - 1 && getTile( x + 1, y + 1 ).equals( tile ) ) ? 1 : 0;
+		return count;
+	}
 	
 	/**
 	 * Constructs a grid from a file
@@ -123,6 +165,19 @@ public class Grid {
 		}
 		
 		return grid;
+	}
+	
+	/**
+	 * Copies the grid into a new grid object
+	 * 
+	 * @return The copy
+	 */
+	public Grid copy( ) {
+		final Grid g = new Grid( this.height, this.width, this.tileset );
+		for( int x = 0; x < this.width; x++ )
+			for( int y = 0; y < this.height; y++ )
+				g.setTile( x, y, this.getTile( x, y ).copy( ) );
+		return g;
 	}
 	
 	/**
