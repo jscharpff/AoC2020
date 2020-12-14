@@ -79,19 +79,19 @@ public class Day13 {
 			busses.add( new Bus( Long.valueOf( b ), (long)curroffset ) );
 		}
 		
-		// reverse the list (more efficient removes)
+		// reverse the stack to consider them in their correct order while popping
 		Collections.reverse( busses );
-		
+				
 		// keep combining Bus schedules until we know the interval and start offset of
-		// the desired configuration
-		while( busses.size( ) > 1 ) {
-			final Bus b1 = busses.pop( );
+		// the desired configuration, start with the first bus which has no offset
+		Bus combined = busses.pop( );
+		while( busses.size( ) > 0 ) {
 			final Bus b2 = busses.pop( );
-			busses.push( b1.combine( b2 ) );
+			combined = combined.combine( b2 );
 		}
 		
-		// the resulting function has the desired time stamp as its offset, this is
+		// the resulting combined bus has the desired time stamp as its offset, this is
 		// the first time at which the desired configuration occurs
-		return busses.pop( ).offset;
+		return combined.offset;
 	}
 }
