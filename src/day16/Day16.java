@@ -114,15 +114,22 @@ public class Day16 {
 		// the available set in other columns
 		final Map<String, Integer> fieldmap = new HashMap<>( FIELDS );
 		while( fieldmap.size( ) < FIELDS ) {
+			boolean reduced = false; // make sure something happened and we're not stuck indefinitely
 			for( int i = 0; i < colmap.length; i++ ) {
 				final Set<String> f = colmap[i].fields;
-				if( f.size( ) == 1 ) {
-					final String field = f.iterator( ).next( );
-					fieldmap.put( field, i );
-					for( FMAP fmap : colmap ) fmap.fields.remove( field );
-					continue;
-				}
+
+				// can we decide on the field mapping for this column?
+				if( f.size( ) != 1 ) continue;
+
+				// we found a conclusive mapping, fix it and remove this field from other columns			
+				final String field = f.iterator( ).next( );
+				fieldmap.put( field, i );
+				for( FMAP fmap : colmap ) fmap.fields.remove( field );
+				
+				// pffewh, we're not stuck
+				reduced = true;
 			}
+			if( !reduced ) throw new RuntimeException( "Cannot conclusively decide field mapping, current mapping: " + fieldmap.toString( ) );
 		}
 		
 		// now return the product of all fields in my ticket that start with "depart_"
