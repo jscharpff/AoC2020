@@ -22,7 +22,7 @@ public class Day18 {
 		System.out.println( "Example: " + sumProblems( ex_input, c ) );
 		System.out.println( "Part 1 : " + sumProblems( input, c ) );
 
-		System.out.println( "---[ Part 2 ]---" );
+		System.out.println( "\n---[ Part 2 ]---" );
 		final Calculator c2 = new CalculatorV2( );
 		System.out.println( "Example: " + sumProblems( ex_input, c2 ) );
 		System.out.println( "Part 2 : " + sumProblems( input, c2 ) );
