@@ -101,6 +101,14 @@ public class Coord2D {
 		return Math.abs( coord.x - this.x ) + Math.abs( coord.y - this.y );
 	}
 	
+	@Override
+	public boolean equals( Object obj ) {
+		if( obj == null || !(obj instanceof Coord2D) ) return false;
+		final Coord2D c = (Coord2D)obj;
+		
+		return c.x == x && c.y == y;
+	}
+	
 	/** @return The string describing the position */
 	@Override
 	public String toString( ) {

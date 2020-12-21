@@ -17,4 +17,14 @@ public class Util {
 	public static int[] toIntArray( final String str ) {
 		return Stream.of( str.split( "," ) ).mapToInt( x -> Integer.valueOf( x ) ).toArray( );
 	}
+	
+	/**
+	 * Reverses a string
+	 * 
+	 * @param str The string to revers
+	 * @return The reversed string
+	 */
+	public static String reverseString( final String str ) {
+		 return new StringBuffer( str ).reverse( ).toString( );
+	}
 }

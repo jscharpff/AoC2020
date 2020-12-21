@@ -11,9 +11,8 @@ public class Day11 {
 	 * @throws Exception
 	 */
 	public static void main( final String[] args ) throws Exception {
-		final char[] tileset = new char[] { '.', 'L', '#' };
-		final CharGrid ex_grid = CharGrid.fromFile( Day11.class.getResource( "day11_example.txt" ).getFile( ), tileset );
-		final CharGrid grid = CharGrid.fromFile( Day11.class.getResource( "day11_input.txt" ).getFile( ), tileset );
+		final CharGrid ex_grid = CharGrid.fromFile( Day11.class.getResource( "day11_example.txt" ).getFile( ) );
+		final CharGrid grid = CharGrid.fromFile( Day11.class.getResource( "day11_input.txt" ).getFile( ) );
 		
 		System.out.println( "---[ Part 1 ]---" );
 		System.out.println( "Example: " + countSeats( ex_grid, false ) );
