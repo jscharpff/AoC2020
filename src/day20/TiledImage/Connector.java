@@ -16,14 +16,11 @@ public class Connector {
 	/** The tile it belongs to */
 	protected final Tile tile;
 	
-	/** The border of the tile it represents */
-	protected final int rotation;
-	
 	/** The connector checksum */
 	protected final int checksum;
 	
-	/** Its inverted checksum (cached) */
-	protected final int checksuminv;
+	/** Its inverted checksum */
+	protected final int checksumflipped;
 	
 	/**
 	 * Creates a new tile connector from a string description
@@ -32,30 +29,24 @@ public class Connector {
 	 * @param rotation The border of the tile it represents, in terms of degrees
 	 * @param string The string that contains image data
 	 */
-	public Connector( final Tile tile, int rotation, final String string ) {		
+	public Connector( final Tile tile, final String string ) {		
 		this.tile = tile;
-		this.rotation = rotation;
 		
-		this.checksum = computeChecksum( string, false );
-		this.checksuminv = computeChecksum( string, true );
+		this.checksum = computeChecksum( string );
+		this.checksumflipped = computeChecksum( Util.reverseString( string ) );
 	}
 	
 	/**
 	 * Computes the check sum of a given string that represents a tile border
 	 * 
 	 * @param strdata The border as string of "." and "#" tokens
-	 * @param inverted True to compute inverted check sum
 	 * @return The checksum
 	 */
-	protected int computeChecksum( final String strdata, final boolean inverted ) {
-		// reverse string if this is a South or East border
-		final String data = (rotation == Tile.R_SOUTH || rotation == Tile.R_WEST) ? Util.reverseString( strdata ) : strdata;
-		
+	protected int computeChecksum( final String data ) {		
 		// every "#" is a one in a byte array of length x
 		int chksum = 0;
 		for( int i = data.length( ) - 1; i >= 0; i-- ) {
-			final int idx = inverted ? data.length( ) - i - 1 : i;
-			if( data.charAt( idx ) == '#' ) chksum += (int)Math.pow( 2.0, data.length( ) - i - 1 );
+			if( data.charAt( i ) == '#' ) chksum += (int)Math.pow( 2.0, data.length( ) - i - 1 );
 		}
 
 		return chksum;
@@ -72,7 +63,7 @@ public class Connector {
 	 * @return True iff they may connect in at least one configuration
 	 */
 	public boolean canConnect( final Connector conn ) {
-		return conn.checksum == this.checksum || conn.checksum == this.checksuminv;
+		return conn.checksum == this.checksum || conn.checksum == this.checksumflipped;
 	}
 	
 	/**
@@ -139,14 +130,14 @@ public class Connector {
 	 * Computes the check sum, given the current tile configuration
 	 * 
 	 * @param inverted True to get the inverted checksum (e.g. for matching other pieces)
-	 * @return The correct chceksum of the connector
+	 * @return The correct checksum of the connector
 	 */
 	protected int getCheckSum( final boolean inverted ) {
 		switch( tile.flipped ) {
-			case None: return (inverted ? checksum : checksuminv);
+			case None: return (inverted ? checksum : checksumflipped);
 			case Horizontal:
 			case Vertical:
-				return (inverted ? checksuminv : checksum );
+				return (inverted ? checksumflipped : checksum );
 			default:
 				throw new RuntimeException( "Invalid flipped value " + tile.flipped );
 		}

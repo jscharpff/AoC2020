@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import util.Util;
 import util.grid.CharGrid;
 
 /**
@@ -57,12 +58,12 @@ public class Tile {
 		this.rotation = 0;
 		this.flipped = Flip.None;
 		
-		// create connectors
+		// create connectors: N, E, S, W
 		connectors = new Connector[] {
-				new Connector( this, R_NORTH, image.getRow( 0 ) ),
-				new Connector( this, R_EAST, image.getColumn( image.getWidth( ) - 1 ) ),
-				new Connector( this, R_SOUTH, image.getRow( image.getHeight( ) - 1 ) ),
-				new Connector( this, R_WEST, image.getColumn( 0 ) )
+				new Connector( this, image.getRow( 0 ) ),
+				new Connector( this, image.getColumn( image.getWidth( ) - 1 ) ),
+				new Connector( this, Util.reverseString( image.getRow( image.getHeight( ) - 1 ) ) ),
+				new Connector( this, Util.reverseString( image.getColumn( 0 ) ) )
 		};
 		
 		this.data = image;
