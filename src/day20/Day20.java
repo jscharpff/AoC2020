@@ -32,11 +32,12 @@ public class Day20 {
 	}
 
 	/**
-	 * Reconstructs the image from the tiles by matching borders
+	 * Determines the corner tiles from the set of tiles and returns the product
+	 * of their IDs
 	 * 
 	 * @param tiles The input as a series of tiles
 	 * @return The product of IDs of the corner tiles
-	 * @throws Exception if the reconstruction was unsuccessful
+	 * @throws Exception if not exactly 4 corner pieces were found
 	 */
 	protected static long part1( final List<String> input ) throws Exception {
 		// parse input into tiles
@@ -47,19 +48,23 @@ public class Day20 {
 		final TiledImage img = new TiledImage( tiles );
 		final List<Tile> corners = img.getCornerTiles( );
 
+		// check if number of corner pieces is 4
 		if( corners.size( ) != 4 ) throw new Exception( "Failed to get corner tiles" );
 		
+		// return the product of their IDs
 		long prod = 1;
 		for( Tile t : corners ) prod *= (long)t.getID( );
-
 		return prod;
 	}	
 
 	/**
-	 * Reconstructs the image from the tiles by matching borders
+	 * Reconstructs the image from the tiles by matching borders, then checks
+	 * how many times a sea monster may be hidden in the image. After inserting
+	 * the monsters, it will return the count of "#" tiles where no monster
+	 * resides...
 	 * 
 	 * @param tiles The input as a series of tiles
-	 * @return The product of IDs of the corner tiles
+	 * @return Count of '#' tiles without a monster
 	 * @throws Exception if the reconstruction was unsuccessful
 	 */
 	protected static long part2( final List<String> input ) throws Exception {

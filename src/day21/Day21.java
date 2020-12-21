@@ -24,6 +24,13 @@ public class Day21 {
 		System.out.println( "Part 2 : " + part2( input ) );
 	}
 	
+	/**
+	 * Part 1: infer which ingredient contain what allergen, then return the count
+	 * of ingredients in all rules that do not contain allergens.
+	 * 
+	 * @param input The allergen rules as strings
+	 * @return The count of ingredients without allergens in all rules 
+	 */
 	protected static long part1( final List<String> input ) {
 		final AllergenInfo info = new AllergenInfo( input );
 		if( !info.inferAllergens( ) ) throw new RuntimeException( "Failed to infer all allergens" );
@@ -31,6 +38,13 @@ public class Day21 {
 		return info.countUnmapped( );
 	}
 	
+	/**
+	 * Part 2: infer which ingredient contain what allergen, then return the list
+	 * of ingredients with allergen ordered by their allergen name.
+	 * 
+	 * @param input The allergen rules as strings
+	 * @return The comma separated string of ingredients ordered by their allergen name 
+	 */
 	protected static String part2( final List<String> input ) {
 		final AllergenInfo info = new AllergenInfo( input );
 		if( !info.inferAllergens( ) ) throw new RuntimeException( "Failed to infer all allergens" );
