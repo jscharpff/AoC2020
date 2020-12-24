@@ -33,16 +33,15 @@ public class HexFloor {
 		// create a new tile at the reference position 
 		final HexTile t = new HexTile( new Coord2D( 0, 0 ) );
 		
-		// move the tile
+		// move the tile according to the string with move commands
 		String m = moves;
 		while( m.length( ) > 0 ) {
 			final String move = ( m.startsWith( "n" ) || m.startsWith( "s" ) ) ? m.substring( 0, 2 ) : m.substring( 0, 1 );
 			t.move( move );
 			m = m.substring( move.length( ) );
 		}
-		
-		
-		// we are at the end position, set it in the grid. Update it it is already there
+				
+		// we are at the end position, set it in the grid. Update if it is already there
 		final Coord2D pos = t.getPosition( );
 		if( floorplan.containsKey( pos ) ) {
 			floorplan.get( pos ).flip( );
@@ -97,7 +96,6 @@ public class HexFloor {
 			if( t.isBlackUp( ) ) count++;
 		return count;
 	}
-
 	
 	/**
 	 * Count the number of adjacent tiles that are black
