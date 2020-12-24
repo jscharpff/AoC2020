@@ -114,4 +114,9 @@ public class Coord2D {
 	public String toString( ) {
 		return "(" + x + "," + y + ")";
 	}
+	
+	@Override
+	public int hashCode( ) {
+		return toString( ).hashCode( );
+	}
 }
